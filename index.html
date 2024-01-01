@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <style>
+
+    #mybgcarousel{ /* CSS for specific carousel container called #mybgcarousel. */
+    width:100%;
+    height:650px;
+    }
+    
+    /* ######### Shared CSS for various parts of carousel (in the event of multiple carousels) ######### */
+    
+    div.bgcarousel{ /* shared CSS for main carousel container */
+    background: black url(ajaxload.gif) center center no-repeat; /* loading gif while caoursel is loading */
+    }
+    
+    div.bgcarousel img.navbutton{ /* CSS for the nav buttons */
+        width: 60px;
+        border: 0;
+        outline: 0;
+        background: rgba(0, 0, 0, 0.5);
+        border-radius: 50%;
+        transition: 0.3s;
+    }
+    
+    div.bgcarousel img.navbutton:hover{
+        background: rgba(255, 255, 255, 0.8);
+    }
+    div.bgcarousel div.slide{ /* CSS for each image's DIV container within main container */
+    background-color: black;
+    background-position: center center; /* center image within carousel */
+    background-repeat: no-repeat;
+    background-size: cover; /* CSS3 property to scale image within container? "cover" or "contain" */
+    color: black;
+    }
+    
+    div.bgcarousel div.selectedslide{ /* CSS for currently selected slide */
+    }
+    
+    div.bgcarousel div.slide div.desc{ /* DIV that contains the textual description inside .slide */
+    position: absolute;
+    color: white;
+    left: 40px;
+    top: 160px;
+    width:450px;
+    padding: 10px;
+    font: bold 16px sans-serif, Arial;
+    text-shadow: 0 -1px 1px #8a8a8a; /* CSS3 text shadow */
+    z-index:5;
+    }
+    
+    div.bgcarousel div.selectedslide div.desc{ /* CSS for currently selected slide's desc div */
+    margin-left: 15%;
+    }
+    
+    div.bgcarousel div.slide div.desc h2{
+    font-size:150%;
+    margin-bottom:20px;
+    color: rgba(00, 00, 0, 0.5);
+    background: #fff;
+    width: 220px;
+    padding: 10px;
+    }
+    
+    div.bgcarousel div.slide div.desc .country{
+    font-size:150%;
+    margin-bottom:20px;
+    color: rgba(0, 0, 0, 0.5);
+    background: #fff;
+    width: 250px;
+    padding: 10px;
+    }
+    
+    div.bgcarousel div.slide div.desc h2 span{
+    font-size:120%;
+    margin:0;
+    color: orangered;
+    background: #fff;
+    }
+    
+    div.bgcarousel div.slide div.desc p{
+    font-size:270%;
+    margin:0;
+    font-weight: 800;
+    color: #fff;
+    text-transform: uppercase;
+    }
+    
+    div.bgcarousel div.slide div.desc a{
+    color:yellow;
+    text-decoration:none;
+    }
+    
+    </style>
+    <style>
+
+      /* Demos styles. Remove if desired */
+      
+      /* demo #1 textarea */
+      
+      .control-copytextarea{
+        cursor: pointer;
+        font-weight: bold;
+        padding:3px 10px;
+        border-radius: 5px 5px 0 0;
+        background: darkred;
+        color: white;
+        display: inline-block;
+        box-shadow: 0 0 3px gray;
+      }
+      
+      /* demo #2 input text with control */
+      
+      #select2{
+        line-height: 25px;
+        font-size: 105%;
+        width: 95%;
+        max-width: 500px;
+        margin: 0;
+      }
+      
+      .control-copyinput{
+        cursor: pointer;
+        font-weight: bold;
+        padding:3px 10px;
+        border-radius: 8px;
+        background: darkred;
+        color: white;
+        display: inline-block;
+        box-shadow: 0 0 3px gray;
+        line-height: 25px;
+      }
+      
+      /* demo #3 input text only */
+      
+      fieldset{
+        width: 95%;
+        background: lightyellow;
+        max-width: 600px;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+      }
+      
+      #select3{
+        font-size: 105%;
+        margin: 0;
+        width: 90%;
+        max-width: 500px;
+      }
+      
+      /* demo #4 regular div */
+      
+      #select4{
+        width: 200px;
+        border: 1px solid orange;
+        padding: 5px;
+        background: lightyellow;
+      }
+      
+      .control-copydiv{
+        cursor: pointer;
+        margin-top: 8px;
+        display: inline-block;
+        border: 1px solid red;
+        color: red;
+        padding: 2px 5px;
+        border-radius: 3px;
+        margin-top: 8px;
+        background: white;
+      }
+      
+      </style>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="jquery.velocity.min.js"></script>
+    <script type="text/javascript" src="jquery.touchSwipe.min.js"></script>
+    
+    <script src="bgcarousel.js" type="text/javascript">
+    
+    /***********************************************
+    * Background Image Carousel- (c) Dynamic Drive (www.dynamicdrive.com)
+    * Please keep this notice intact
+    * Visit http://www.dynamicdrive.com/ for this script and 100s more.
+    ***********************************************/
+    
+    </script>
+    
+    <script type="text/javascript">
+    
+    var firstbgcarousel=new bgCarousel({
+        wrapperid: 'mybgcarousel', //ID of blank DIV on page to house carousel
+        imagearray: [
+            ['img/v1.jpg', '<h2>Toronto,<span>Canada</span></h2><p>check out!<br>we have got the best villa for you</p>'], //["image_path", "optional description"]
+            ['img/v5.jpg', '<h2 class="country">NewYork,<span>America</span></h2><p>be quick!<br>get the best villa in town for comfort</p>'],
+            ['img/v8.jpg', '<h2 class="country">Ethihad,<span>England</span></h2><p>act now!<br>we have get the highest level penthouse</p>'] //<--no trailing comma after very last image element!
+        ],
+        displaymode: {type:'auto', pause:3000, cycles:3, stoponclick:false, pauseonmouseover:true},
+        navbuttons: ['left.png', 'right.png', 'up.gif', 'down.gif'], // path to nav images
+        activeslideclass: 'selectedslide', // CSS class that gets added to currently shown DIV slide
+        orientation: 'h', //Valid values: "h" or "v"
+        persist: true, //remember last viewed slide and recall within same session?
+        slideduration: 500 //transition duration (milliseconds)
+    })
+    
+    </script>
+    
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="img/amongus.png" />
+<title style="color: orangered; font-weight: 600;">LUXERA</title>
+</head>
+<body>
+
+  <script src="https://kit.fontawesome.com/2b7678fcaa.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/css/index.css">
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link  rel="shortcut icon"  href="/img/amongus.png">
+</head>
+<body>
+<div class="e  bg-dark border-bottom border-body" data-bs-theme="dark">
+  <a href="https://web.facebook.com/"><i class="fa-2x fa-brands fa-facebook"></i></a>
+  <a href="https://api.whatsapp.com/"><i class="fa-2x fa-brands fa-whatsapp"></i></a>
+  <a href="https://twitter.com/home"><i class="fa-2x fa-brands fa-instagram"></i></a>
+  <a href="https://twitter.com/home"><i class="fa-2x fa-brands fa-twitter"></i></a>
+</div>
+<nav class="navbar navbar-expand-lg bg-body-tertiary bg-dark border-bottom border-body" data-bs-theme="dark">
+  <div class="container-fluid">
+    <a class="navbar-brand logo-nav" href="#"><p>LUXERA</p></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="about.html">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Products</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="contact.html">Contact</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<div id="mybgcarousel" class="bgcarousel"></div>
+<div class="text">
+  <p class="p">latest</p>
+<div class="logos">
+<div class="logos-slide">
+  <img src="/img/news.png" alt="" width="100px"><p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Excepturi amet maiores sed dolor. Facere esse aperiam minus numquam culpa.</p>
+ <img src="/img/live.png" alt="" width="100px"><p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Excepturi amet maiores sed dolor. Facere esse aperiam minus numquam culpa .</p>
+  <img src="/img/update.jpg" alt="" width="100px"><p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Excepturi amet maiores sed dolor. Facere esse aperiam minus numquam culpa .</p>
+ 
+
+</div>
+<div class="logos-slide">
+  <img src="/img/news.png" alt="" width="100px"><p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Excepturi amet maiores sed dolor. Facere esse aperiam minus numquam culpa .</p>
+ <img src="/img/live.png" alt="" width="100px"><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque eius quisquam ullam esse. Cumque fuga ex dolorum incidunt qui vitae.</p>
+  <img src="/img/update.jpg" alt="" width="100px"><p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Atque excepturi omnis eaque ullam reiciendis nulla saepe. Odit repellat culpa hic?</p>
+ 
+</div>
+</div>
+</div>
+<h1 class="uuu">TOP DEALS</h1>
+<div id="carouselExample" class="carousel slide">
+  <div class="carousel-inner container">
+    <div class="carousel-item active">
+      <div class="row row-cols-1 row-cols-md-3 g-4 w-100">
+        <div class="col">
+          <div class="card h-100">
+            <img src="img/prod36.jpg" class="card-img-top card-image" alt="...">
+            <div class="card-body" style="text-align: center;">
+              <h5 class="card-title">Toyota Spider 2022</h5>
+              <img src="img/5star.jpg" alt="" class="container">
+              <p class="card-text">$ 1,200,000</p>
+              <div id="liveAlertPlaceholder"></div>
+      <button type="button" class="btn btn-primary" id="liveAlertBtn">Add To Cart</button>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card h-100">
+            <img src="img/v3.jpg" class="card-img-top card-image" alt="...">
+            <div class="card-body" style="text-align: center;">
+              <h5 class="card-title" >Mercedes Benz 2022</h5>
+              <img src="img/5star.jpg" alt="" class="container">
+              <p class="card-text" >$ 1,500,000</p>
+              <div id="liveAlertPlaceholder"></div>
+              <button type="button" class="btn btn-primary" id="liveAlertBtn">Add To Cart</button>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card h-100">
+            <img src="img/prod25.jpg" class="card-img-top card-image" alt="...">
+            <div class="card-body" style="text-align: center;">
+              <h5 class="card-title">Kia Sportage XL350</h5>
+              <img src="img/5star.jpg" alt="" class="container">
+              <p class="card-text">$ 2,000,000</p>
+              <div id="liveAlertPlaceholder"></div>
+              <button type="button" class="btn btn-primary" id="liveAlertBtn">Add To Cart</button>
+            </div>
+          </div>
+        </div>
+       
+      </div>
+    </div>
+    <div class="carousel-item">
+      <div class="row row-cols-1 row-cols-md-3 g-4 w-100">
+        <div class="col">
+          <div class="card h-100">
+            <img src="img/prod20.jpg" class="card-img-top card-image" alt="...">
+            <div class="card-body" style="text-align: center;">
+              <h5 class="card-title">Bougatti Veryron 2020</h5>
+              <img src="img/5star.jpg" alt="" class="container">
+              <p class="card-text">$100,000</p>
+              <div id="liveAlertPlaceholder"></div>
+              <button type="button" class="btn btn-primary" id="liveAlertBtn">Add To Cart</button>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card h-100">
+            <img src="img/v6.jpg" class="card-img-top card-image" alt="...">
+            <div class="card-body" style="text-align: center;">
+              <h5 class="card-title">Mercedes Benz exhortion 2021</h5>
+              <img src="img/5star.jpg" alt="" class="container">
+              <p class="card-text">$120,000</p>
+              <div id="liveAlertPlaceholder"></div>
+              <button type="button" class="btn btn-primary" id="liveAlertBtn">Add To Cart</button>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card h-100">
+            <img src="img/prod21.jpg" class="card-img-top card-image" alt="...">
+            <div class="card-body" style="text-align: center;">
+              <h5 class="card-title">Lambogini Miura 2021</h5>
+              <img src="img/5star.jpg" alt="" class="container">
+              <p class="card-text">$150,000</p>
+              <div id="liveAlertPlaceholder"></div>
+              <button type="button" class="btn btn-primary" id="liveAlertBtn">Add To Cart</button>
+            </div>
+          </div>
+        </div>
+       
+      </div>
+    </div>
+    
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"><img src="left.png" alt="" width="30px"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"><img src="right.png" alt="" width="30px"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+<h1 class="uuu">LATEST</h1>
+<div id="carouselExample2" class="carousel slide">
+  <div class="carousel-inner container">
+    <div class="carousel-item active">
+      <div class="row row-cols-1 row-cols-md-3 g-4 w-100">
+        <div class="col">
+          <div class="card h-100">
+            <img src="img/prod36.jpg" class="card-img-top card-image" alt="...">
+            <div class="card-body" style="text-align: center;">
+              <h5 class="card-title">Toyota Spider 2022</h5>
+              <img src="img/5star.jpg" alt="" class="container">
+              <p class="card-text">$ 1,200,000</p>
+              <div id="liveAlertPlaceholder"></div>
+      <button type="button" class="btn btn-primary" id="liveAlertBtn">Add To Cart</button>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card h-100">
+            <img src="img/v3.jpg" class="card-img-top card-image" alt="...">
+            <div class="card-body" style="text-align: center;">
+              <h5 class="card-title" >Mercedes Benz 2022</h5>
+              <img src="img/5star.jpg" alt="" class="container">
+              <p class="card-text" >$ 1,500,000</p>
+              <div id="liveAlertPlaceholder"></div>
+              <button type="button" class="btn btn-primary" id="liveAlertBtn">Add To Cart</button>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card h-100">
+            <img src="img/prod25.jpg" class="card-img-top card-image" alt="...">
+            <div class="card-body" style="text-align: center;">
+              <h5 class="card-title">Kia Sportage XL350</h5>
+              <img src="img/5star.jpg" alt="" class="container">
+              <p class="card-text">$ 2,000,000</p>
+              <div id="liveAlertPlaceholder"></div>
+              <button type="button" class="btn btn-primary" id="liveAlertBtn">Add To Cart</button>
+            </div>
+          </div>
+        </div>
+       
+      </div>
+    </div>
+    <div class="carousel-item">
+      <div class="row row-cols-1 row-cols-md-3 g-4 w-100">
+        <div class="col">
+          <div class="card h-100">
+            <img src="img/prod20.jpg" class="card-img-top card-image" alt="...">
+            <div class="card-body" style="text-align: center;">
+              <h5 class="card-title">Bougatti Veryron 2020</h5>
+              <img src="img/5star.jpg" alt="" class="container">
+              <p class="card-text">$100,000</p>
+              <div id="liveAlertPlaceholder"></div>
+              <button type="button" class="btn btn-primary" id="liveAlertBtn">Add To Cart</button>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card h-100">
+            <img src="img/v6.jpg" class="card-img-top card-image" alt="...">
+            <div class="card-body" style="text-align: center;">
+              <h5 class="card-title">Mercedes Benz exhortion 2021</h5>
+              <img src="img/5star.jpg" alt="" class="container">
+              <p class="card-text">$120,000</p>
+              <div id="liveAlertPlaceholder"></div>
+              <button type="button" class="btn btn-primary" id="liveAlertBtn">Add To Cart</button>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card h-100">
+            <img src="img/prod21.jpg" class="card-img-top card-image" alt="...">
+            <div class="card-body" style="text-align: center;">
+              <h5 class="card-title">Lambogini Miura 2021</h5>
+              <img src="img/5star.jpg" alt="" class="container">
+              <p class="card-text">$150,000</p>
+              <div id="liveAlertPlaceholder"></div>
+              <button type="button" class="btn btn-primary" id="liveAlertBtn">Add To Cart</button>
+            </div>
+          </div>
+        </div>
+       
+      </div>
+    </div>
+    
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample2" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"><img src="left.png" alt="" width="30px"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExample2" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"><img src="right.png" alt="" width="30px"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+<h1 class="uuu">FEATURED</h1>
+<div id="carouselExample3" class="carousel slide">
+  <div class="carousel-inner container">
+    <div class="carousel-item active">
+      <div class="row row-cols-1 row-cols-md-3 g-4 w-100">
+        <div class="col">
+          <div class="card h-100">
+            <img src="img/prod36.jpg" class="card-img-top card-image" alt="...">
+            <div class="card-body" style="text-align: center;">
+              <h5 class="card-title">Toyota Spider 2022</h5>
+              <img src="img/5star.jpg" alt="" class="container">
+              <p class="card-text">$ 1,200,000</p>
+              <div id="liveAlertPlaceholder"></div>
+      <button type="button" class="btn btn-primary" id="liveAlertBtn">Add To Cart</button>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card h-100">
+            <img src="img/v3.jpg" class="card-img-top card-image" alt="...">
+            <div class="card-body" style="text-align: center;">
+              <h5 class="card-title" >Mercedes Benz 2022</h5>
+              <img src="img/5star.jpg" alt="" class="container">
+              <p class="card-text" >$ 1,500,000</p>
+              <div id="liveAlertPlaceholder"></div>
+              <button type="button" class="btn btn-primary" id="liveAlertBtn">Add To Cart</button>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card h-100">
+            <img src="img/prod25.jpg" class="card-img-top card-image" alt="...">
+            <div class="card-body" style="text-align: center;">
+              <h5 class="card-title">Kia Sportage XL350</h5>
+              <img src="img/5star.jpg" alt="" class="container">
+              <p class="card-text">$ 2,000,000</p>
+              <div id="liveAlertPlaceholder"></div>
+              <button type="button" class="btn btn-primary" id="liveAlertBtn">Add To Cart</button>
+            </div>
+          </div>
+        </div>
+       
+      </div>
+    </div>
+    <div class="carousel-item">
+      <div class="row row-cols-1 row-cols-md-3 g-4 w-100">
+        <div class="col">
+          <div class="card h-100">
+            <img src="img/prod20.jpg" class="card-img-top card-image" alt="...">
+            <div class="card-body" style="text-align: center;">
+              <h5 class="card-title">Bougatti Veryron 2020</h5>
+              <img src="img/5star.jpg" alt="" class="container">
+              <p class="card-text">$100,000</p>
+              <div id="liveAlertPlaceholder"></div>
+              <button type="button" class="btn btn-primary" id="liveAlertBtn">Add To Cart</button>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card h-100">
+            <img src="img/v6.jpg" class="card-img-top card-image" alt="...">
+            <div class="card-body" style="text-align: center;">
+              <h5 class="card-title">Mercedes Benz exhortion 2021</h5>
+              <img src="img/5star.jpg" alt="" class="container">
+              <p class="card-text">$120,000</p>
+              <div id="liveAlertPlaceholder"></div>
+              <button type="button" class="btn btn-primary" id="liveAlertBtn">Add To Cart</button>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card h-100">
+            <img src="img/prod21.jpg" class="card-img-top card-image" alt="...">
+            <div class="card-body" style="text-align: center;">
+              <h5 class="card-title">Lambogini Miura 2021</h5>
+              <img src="img/5star.jpg" alt="" class="container">
+              <p class="card-text">$150,000</p>
+              <div id="liveAlertPlaceholder"></div>
+              <button type="button" class="btn btn-primary" id="liveAlertBtn">Add To Cart</button>
+            </div>
+          </div>
+        </div>
+       
+      </div>
+    </div>
+    
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample3" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"><img src="left.png" alt="" width="30px"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExample3" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"><img src="right.png" alt="" width="30px"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+<h1 class="uuu">DISCOUNT</h1>
+<!-- <div class="container"> -->
+  <img src="/images/playlearnlogo.png" alt="" class="logo">
+  <!-- <div class="content">
+      <p>website is under construction</p>
+      <h1>We'er <span>opening</span>soon</h1>
+  </div> -->
+      <div class="launch-timer container">
+          <div class="al">
+              <p id="days">00</p>
+              <span>Days</span>
+          </div>
+          <div class="al">
+              <p id="hours">00</p>
+              <span>Hours</span>
+          </div>
+          <div class="al">
+              <p id="minutes">00</p>
+              <span>Minutes</span>
+          </div>
+          <div class="al">
+              <p id="seconds">00</p>
+              <span>Seconds</span>
+          </div>
+      </div>
+<div id="carouselExample4" class="carousel slide">
+  <div class="carousel-inner container">
+    <div class="carousel-item active">
+      <div class="row row-cols-1 row-cols-md-3 g-4 w-100">
+        <div class="col">
+          <div class="card h-100">
+            <img src="img/prod36.jpg" class="card-img-top card-image" alt="...">
+            <div class="card-body" style="text-align: center;">
+              <h5 class="card-title">Toyota Spider 2022</h5>
+              <img src="img/5star.jpg" alt="" class="container">
+              <p class="card-text z">$ 1,200,000</p>
+              <p class="card-text t">$ 1,000,000</p>
+              <div id="liveAlertPlaceholder"></div>
+      <button type="button" class="btn btn-primary" id="liveAlertBtn">Add To Cart</button>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card h-100">
+            <img src="img/v3.jpg" class="card-img-top card-image" alt="...">
+            <div class="card-body" style="text-align: center;">
+              <h5 class="card-title" >Mercedes Benz 2022</h5>
+              <img src="img/5star.jpg" alt="" class="container">
+              <p class="card-text z" >$ 1,500,000</p>
+              <p class="card-text t">$ 1,000,000</p>
+              <div id="liveAlertPlaceholder"></div>
+              <button type="button" class="btn btn-primary" id="liveAlertBtn">Add To Cart</button>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card h-100">
+            <img src="img/prod25.jpg" class="card-img-top card-image" alt="...">
+            <div class="card-body" style="text-align: center;">
+              <h5 class="card-title">Kia Sportage XL350</h5>
+              <img src="img/5star.jpg" alt="" class="container">
+              <p class="card-text z">$ 2,000,000</p>
+              <p class="card-text t">$ 1,500,000</p>
+              <div id="liveAlertPlaceholder"></div>
+              <button type="button" class="btn btn-primary" id="liveAlertBtn">Add To Cart</button>
+            </div>
+          </div>
+        </div>
+       
+      </div>
+    </div>
+    <div class="carousel-item">
+      <div class="row row-cols-1 row-cols-md-3 g-4 w-100">
+        <div class="col">
+          <div class="card h-100">
+            <img src="img/prod20.jpg" class="card-img-top card-image" alt="...">
+            <div class="card-body" style="text-align: center;">
+              <h5 class="card-title">Bougatti Veryron 2020</h5>
+              <img src="img/5star.jpg" alt="" class="container">
+              <p class="card-text z">$100,000</p>
+              <p class="card-text t">$ 90,000</p>
+              <div id="liveAlertPlaceholder"></div>
+              <button type="button" class="btn btn-primary" id="liveAlertBtn">Add To Cart</button>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card h-100">
+            <img src="img/v6.jpg" class="card-img-top card-image" alt="...">
+            <div class="card-body" style="text-align: center;">
+              <h5 class="card-title">Mercedes Benz exhortion 2021</h5>
+              <img src="img/5star.jpg" alt="" class="container">
+              <p class="card-text z">$120,000</p>
+              <p class="card-text t">$ 100,000</p>
+              <div id="liveAlertPlaceholder"></div>
+              <button type="button" class="btn btn-primary" id="liveAlertBtn">Add To Cart</button>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card h-100">
+            <img src="img/prod21.jpg" class="card-img-top card-image" alt="...">
+            <div class="card-body" style="text-align: center;">
+              <h5 class="card-title">Lambogini Miura 2021</h5>
+              <img src="img/5star.jpg" alt="" class="container">
+              <p class="card-text z">$150,000</p>
+              <p class="card-text t">$ 120,000</p>
+              <div id="liveAlertPlaceholder"></div>
+              <button type="button" class="btn btn-primary" id="liveAlertBtn">Add To Cart</button>
+            </div>
+          </div>
+        </div>
+       
+      </div>
+    </div>
+    
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample4" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"><img src="left.png" alt="" width="30px"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExample4" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"><img src="right.png" alt="" width="30px"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+<section>
+  <h1 class="uuu">our partners </h1>
+      <div class="slider container">
+          <ul class="brands">
+              <li class="brand-logo"><img src="/img/benz.png" alt=""></li>
+              <li class="brand-logo"><img src="/img/audi.png" alt=""></li>
+              <li class="brand-logo"><img src="/img/tesla.png" alt=""></li>
+              <li class="brand-logo"><img src="/img/honda.png" alt=""></li>
+              <li class="brand-logo"><img src="/img/bmw.png" alt=""></li>
+              <li class="brand-logo"><img src="/img/toyota.png" alt=""></li>
+              <li class="brand-logo"><img src="/img/nissan.png" alt=""></li>
+              <li class="brand-logo"><img src="/img/ford.png" alt=""></li>
+              <li class="brand-logo"><img src="/img/lambo.png" alt=""></li>
+              <li class="brand-logo"><img src="/img/ferrari.png" alt=""></li>
+              <li class="brand-logo"><img src="/img/bugatti.png" alt=""></li>
+              <li class="brand-logo"><img src="/img/rolls.png" alt=""></li>
+              <li class="brand-logo"><img src="/img/chev.png" alt=""></li>
+              <li class="brand-logo"><img src="/img/kia.png" alt=""></li>
+              
+          </ul>
+
+      </div>
+     
+ </section>
+ <h1 class="uuu">FAQ</h1>
+<div class="row container-fluid">
+  <div class="col-sm-6 mb-3 mb-sm-0">
+    <div class="accordion container fff" id="accordionExample">
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+            Accordion Item #1
+          </button>
+        </h2>
+        <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+          <div class="accordion-body">
+            <strong>This is the first item's accordion body.</strong> It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+          </div>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+            Accordion Item #2
+          </button>
+        </h2>
+        <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+          <div class="accordion-body">
+            <strong>This is the second item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+          </div>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
+            Accordion Item #3
+          </button>
+        </h2>
+        <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+          <div class="accordion-body">
+            <strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6">
+    <div class="accordion container fff" id="accordionExample1">
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne1" aria-expanded="false" aria-controls="collapseOne1">
+            Accordion Item #1
+          </button>
+        </h2>
+        <div id="collapseOne1" class="accordion-collapse collapse show" data-bs-parent="#accordionExample1">
+          <div class="accordion-body">
+            <strong>This is the first item's accordion body.</strong> It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+          </div>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo2" aria-expanded="false" aria-controls="collapseTwo2">
+            Accordion Item #2
+          </button>
+        </h2>
+        <div id="collapseTwo2" class="accordion-collapse collapse" data-bs-parent="#accordionExample1">
+          <div class="accordion-body">
+            <strong>This is the second item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+          </div>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree3" aria-expanded="true" aria-controls="collapseThree3">
+            Accordion Item #3
+          </button>
+        </h2>
+        <div id="collapseThree3" class="accordion-collapse collapse" data-bs-parent="#accordionExample1">
+          <div class="accordion-body">
+            <strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container mt-0">
+<h1 class="uuu">CONTACT </h1>
+<form action="" class="row g-3">
+   <div class="col-md-6">
+     <label for="firstName" class="form-label">First Name</label>
+     <input type="text" name="firstname" id="firstName" class="form-control" required>
+   </div>
+   <div class="col-md-6">
+    <label for="lastName" class="form-label">Last Name</label>
+    <input type="text" name="lastname" id="lastName" class="form-control" required>
+   </div>
+   <div class="col-md-8">
+    <label for="emailInfo" class="form-label">Email</label>
+    <input type="email" name="name" id="emailInfo" class="form-control" required>
+   </div>
+   <div class="col-md-4">
+    <label for="phoneNumber" class="form-label">Phone</label>
+    <input type="tel" name="name" id="phoneNumber" class="form-control" required placeholder="+234 8165256837">
+   </div>
+   <div class="col-md-12">
+    <label for="message" class="form-label">Message</label>
+    <textarea name="" id="message" cols="30" rows="7" class="form-control" required style="resize: none;"></textarea>
+   </div>
+   <div class="col-md-12">
+    <button type="submit" class="btn btn-primary">Submit</button>
+   </div>
+</form>
+</div>
+<div class="container m-6 vvv">
+  <div class="row g-3">
+  <div class="col-md-4 fg cont">
+    <i class="fa-3x fa-solid fa-phone"></i>
+    <p id="select2" name="select6" type="text" value="+234 - 08165256837" size="35">+234 - 08165256837</p>
+    <span><i class=" fa-2x fa-solid fa-copy text-light" onClick="return fieldtoclipboard.copyfield(event, 'select6')" style="cursor: pointer;"></i></span>
+  </div>
+  <div class="col-md-4 fg cont">
+    <i class="fa-3x fa-brands fa-google"></i>
+    <p id="select3" name="select5" type="text" value="luxera@gmail.com" size="35">luxera@gmail.com</p>
+    <span><i class="fa-solid fa-copy text-light fa-2x"  onClick="return fieldtoclipboard.copyfield(event, 'select5')" style="cursor: pointer;"></i></span>
+  </div>
+  <div class="col-md-3 fg cont">
+    <i class="fa-solid fa-globe fa-3x "></i>
+    <p id="select3" name="select4" type="text" value="www.luxera.com" size="35">www.luxera.com</p>
+    <span ><i class="fa-solid fa-copy text-light fa-2x" onClick="return fieldtoclipboard.copyfield(event, 'select4')" style="cursor: pointer;"></i></span>
+  </div>
+</div>
+</div>
+<div class="col-md-2 fg2 ccc bg-info">
+  <i class="fa-solid fa-comments fa-3x "></i>
+  <p class="text-light">LIVE CHAT</p>
+</div>
+ <br><br><br><br><br><br><footer>
+  <div class="row1">
+      <div class="col1" class="">
+          <p class="footer-logo">LUXERA</p>
+          <p>Lorem Lorem ipsum dolor sit amet.ipsum, dolor sit amet consectetur adipisicing elit. Accusamus nisi possimus laboriosam adipisci eum qui suscipit ab vitae?</p>
+      </div>
+      <div class="col1">
+          <h3>Office <div class="underline"><span></span></div></h3>
+          <p>Jesus Saves Road</p>
+          <p>Okogwu sreet,Standard Live juncton,Jesus Saves Road,Asaba,Delta State</p>
+          <p class="email-id">onyekaprince88@gmail.com</p>
+          <h4>+234 - 08165256837</h4>
+      </div>
+      <div class="col1">
+          <h3>Links <div class="underline"><span></span></div></h3>
+          <ol class="footer-links">
+              <li><a href="#">Home</a></li>
+              <li><a href="#">Services</a></li>
+              <li><a href="#">About us</a></li>
+              <li><a href="#">Features</a></li>
+              <li><a href="#">Contact</a></li>
+          </ol>
+      </div>
+      <div class="col1">
+          <h3>Newsletter <div class="underline"><span></span></div></h3>
+          <form action="" class="azu">
+              <img src="/img/emvelpoepng.png" alt="" width="30px" class="far">
+              <input type="email" name="" id="" placeholder="Enter your email id" required>
+              <button type="submit"><img src="/img/arrowpng.png" alt="" width="20px"></button>
+          </form>
+          <div class="social-icons">
+            <a href="https://web.facebook.com/"><i class="fa-2x fa-brands fa-facebook"></i></a>
+            <a href="https://api.whatsapp.com/"><i class="fa-2x fa-brands fa-whatsapp"></i></a>
+            <a href="https://twitter.com/home"><i class="fa-2x fa-brands fa-instagram"></i></a>
+            <a href="https://twitter.com/home"><i class="fa-2x fa-brands fa-twitter"></i></a>
+          </div>
+      </div>
+  </div>
+  <hr>
+  <p class="copyright">LUXERA © 2023 - All Right Reserved</p>
+</footer>
+      <script src="/js/bootstrap.bundle.js"></script>
+      <script src="/js/index.js"></script>
+      <script src="fieldtoclipboard.js"></script>
+
+
+
+</body>
+</html>

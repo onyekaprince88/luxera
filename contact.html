@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+
+        /* Demos styles. Remove if desired */
+        
+        /* demo #1 textarea */
+        
+        .control-copytextarea{
+          cursor: pointer;
+          font-weight: bold;
+          padding:3px 10px;
+          border-radius: 5px 5px 0 0;
+          background: darkred;
+          color: white;
+          display: inline-block;
+          box-shadow: 0 0 3px gray;
+        }
+        
+        /* demo #2 input text with control */
+        
+        #select2{
+          line-height: 25px;
+          font-size: 105%;
+          width: 95%;
+          max-width: 500px;
+          margin: 0;
+        }
+        
+        .control-copyinput{
+          cursor: pointer;
+          font-weight: bold;
+          padding:3px 10px;
+          border-radius: 8px;
+          background: darkred;
+          color: white;
+          display: inline-block;
+          box-shadow: 0 0 3px gray;
+          line-height: 25px;
+        }
+        
+        /* demo #3 input text only */
+        
+        fieldset{
+          width: 95%;
+          background: lightyellow;
+          max-width: 600px;
+          -webkit-box-sizing: border-box;
+          -moz-box-sizing: border-box;
+          box-sizing: border-box;
+        }
+        
+        #select3{
+          font-size: 105%;
+          margin: 0;
+          width: 90%;
+          max-width: 500px;
+        }
+        
+        /* demo #4 regular div */
+        
+        #select4{
+          width: 200px;
+          border: 1px solid orange;
+          padding: 5px;
+          background: lightyellow;
+        }
+        
+        .control-copydiv{
+          cursor: pointer;
+          margin-top: 8px;
+          display: inline-block;
+          border: 1px solid red;
+          color: red;
+          padding: 2px 5px;
+          border-radius: 3px;
+          margin-top: 8px;
+          background: white;
+        }
+        
+        </style>
+    <script src="https://kit.fontawesome.com/2b7678fcaa.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/css/contact.css">
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link  rel="shortcut icon"  href="/img/amongus.png">
+    <title>Document</title>
+</head>
+<body>
+    <div class="e  bg-dark border-bottom border-body" data-bs-theme="dark">
+        <a href="https://web.facebook.com/"><i class="fa-2x fa-brands fa-facebook"></i></a>
+        <a href="https://api.whatsapp.com/"><i class="fa-2x fa-brands fa-whatsapp"></i></a>
+        <a href="https://twitter.com/home"><i class="fa-2x fa-brands fa-instagram"></i></a>
+        <a href="https://twitter.com/home"><i class="fa-2x fa-brands fa-twitter"></i></a>
+      </div>
+      <nav class="navbar navbar-expand-lg bg-body-tertiary bg-dark border-bottom border-body" data-bs-theme="dark">
+        <div class="container-fluid">
+          <a class="navbar-brand logo-nav" href="#"><p>LUXERA</p></a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link "  href="index.html">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link "  href="about.html">About</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Products</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="contact.html">Contact</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <div class="about">CONTACT US</div>
+      <div class="container mt-0">
+        <h1 class="vcv">CONTACT </h1>
+        <form action="" class="row g-3">
+           <div class="col-md-6">
+             <label for="firstName" class="form-label">First Name</label>
+             <input type="text" name="firstname" id="firstName" class="form-control" required>
+           </div>
+           <div class="col-md-6">
+            <label for="lastName" class="form-label">Last Name</label>
+            <input type="text" name="lastname" id="lastName" class="form-control" required>
+           </div>
+           <div class="col-md-8">
+            <label for="emailInfo" class="form-label">Email</label>
+            <input type="email" name="name" id="emailInfo" class="form-control" required>
+           </div>
+           <div class="col-md-4">
+            <label for="phoneNumber" class="form-label">Phone</label>
+            <input type="tel" name="name" id="phoneNumber" class="form-control" required placeholder="+234 8165256837">
+           </div>
+           <div class="col-md-12">
+            <label for="message" class="form-label">Message</label>
+            <textarea name="" id="message" cols="30" rows="7" class="form-control" required style="resize: none;"></textarea>
+           </div>
+           <div class="col-md-12">
+            <button type="submit" class="btn btn-primary">Submit</button>
+           </div>
+        </form>
+        </div>
+        <div class="container m-6 vvv">
+          <div class="row g-3">
+          <div class="col-md-4 fg cont">
+            <i class="fa-3x fa-solid fa-phone"></i>
+            <p id="select2" name="select6" type="text" value="+234 - 08165256837" size="35">+234 - 08165256837</p>
+            <span><i class=" fa-2x fa-solid fa-copy text-light" onClick="return fieldtoclipboard.copyfield(event, 'select6')" style="cursor: pointer;"></i></span>
+          </div>
+          <div class="col-md-4 fg cont">
+            <i class="fa-3x fa-brands fa-google"></i>
+            <p id="select3" name="select5" type="text" value="luxera@gmail.com" size="35">luxera@gmail.com</p>
+            <span><i class="fa-solid fa-copy text-light fa-2x"  onClick="return fieldtoclipboard.copyfield(event, 'select5')" style="cursor: pointer;"></i></span>
+          </div>
+          <div class="col-md-3 fg cont">
+            <i class="fa-solid fa-globe fa-3x "></i>
+            <p id="select3" name="select4" type="text" value="www.luxera.com" size="35">www.luxera.com</p>
+            <span ><i class="fa-solid fa-copy text-light fa-2x" onClick="return fieldtoclipboard.copyfield(event, 'select4')" style="cursor: pointer;"></i></span>
+          </div>
+        </div>
+        </div><br><br><br><br><br>
+        <iframe class="container-fluid mt-20" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.438609725483!2d6.709344372236895!3d6.205730893782093!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1043f2848594a063%3A0x503a6c1e28ad74f1!2sThe%20Opal%20Event%20Center!5e0!3m2!1sen!2sng!4v1704124818188!5m2!1sen!2sng" width="100%" height="350" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      <footer>
+        <div class="row1">
+            <div class="col1" class="">
+                <p class="footer-logo">LUXERA</p>
+                <p>Lorem Lorem ipsum dolor sit amet.ipsum, dolor sit amet consectetur adipisicing elit. Accusamus nisi possimus laboriosam adipisci eum qui suscipit ab vitae?</p>
+            </div>
+            <div class="col1">
+                <h3>Office <div class="underline"><span></span></div></h3>
+                <p>Jesus Saves Road</p>
+                <p>Okogwu sreet,Standard Live juncton,Jesus Saves Road,Asaba,Delta State</p>
+                <p class="email-id">onyekaprince88@gmail.com</p>
+                <h4>+234 - 08165256837</h4>
+            </div>
+            <div class="col1">
+                <h3>Links <div class="underline"><span></span></div></h3>
+                <ol class="footer-links">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Services</a></li>
+                    <li><a href="#">About us</a></li>
+                    <li><a href="#">Features</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ol>
+            </div>
+            <div class="col1">
+                <h3>Newsletter <div class="underline"><span></span></div></h3>
+                <form action="" class="azu">
+                    <img src="/img/emvelpoepng.png" alt="" width="30px" class="far">
+                    <input type="email" name="" id="" placeholder="Enter your email id" required>
+                    <button type="submit"><img src="/img/arrowpng.png" alt="" width="20px"></button>
+                </form>
+                <div class="social-icons">
+                  <a href="https://web.facebook.com/"><i class="fa-2x fa-brands fa-facebook"></i></a>
+                  <a href="https://api.whatsapp.com/"><i class="fa-2x fa-brands fa-whatsapp"></i></a>
+                  <a href="https://twitter.com/home"><i class="fa-2x fa-brands fa-instagram"></i></a>
+                  <a href="https://twitter.com/home"><i class="fa-2x fa-brands fa-twitter"></i></a>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <p class="copyright">LUXERA © 2023 - All Right Reserved</p>
+      </footer>
+   
+    <script src="/js/contact.js"></script>
+    <script src="fieldtoclipboard.js"></script>
+  <script src="/js/bootstrap.bundle.js"></script>
+</body>
+</html>

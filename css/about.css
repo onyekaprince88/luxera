@@ -1,0 +1,407 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family:sans-serif;
+  
+}
+.logo-nav p{
+    font-weight: 600;
+    color: orangered;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 25px;
+}
+.fa-facebook{
+    color: #3b5998;
+}
+.fa-whatsapp{
+    color: #25D366;
+}
+.fa-twitter{
+    color: #00acee;
+}
+.fa-instagram{
+    /* color: #3f729b; */
+    color: crimson;
+}
+.fa-brands{
+    transition: all .3s ease-in-out;
+}
+.fa-brands:hover{
+    transform: scale(1.2);
+}
+.e{
+    display: flex;
+    align-items: center;
+    justify-content: right;
+}
+.e a{
+    margin: 10px;
+}
+footer{
+    width: 100%;
+    /* position: absolute; */
+    /* bottom: 0; */
+    background: linear-gradient(to right, #00093c, #2d0b00);
+    /* background: #00093c; */
+    padding: 100px 0 30px;
+    /* border-top-left-radius: 125px; */
+    font-size: 13px;
+    color: #fff;
+    line-height: 20px;
+}
+.row1{
+    width: 85%;
+    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+}
+.col1{
+    flex-basis: 25%;
+    padding: 10px;
+}
+.col1:nth-child(2), .col1:nth-child(3){
+    flex-basis: 15%;
+}
+.logo{
+    width: 80px;
+    margin-bottom: 30px;
+}
+.col1 h3{
+    width: fit-content;
+    margin-bottom: 40px;
+    position: relative;
+    font-size: 20px;
+}
+.col1 h4{
+    font-size: 15px;
+    font-weight: 600;
+}
+.email-id{
+    width: fit-content;
+    border-bottom: 1px solid #ccc;
+    margin: 20px 0;
+}
+.footer-links li{
+    list-style: none;
+    margin-bottom: 12px;
+    padding-left: 0;
+}
+.footer-links{
+    padding-left: 0;
+}
+.footer-links li a{
+    text-decoration: none;
+    color: #fff;
+}
+.azu{
+    padding-bottom: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 50px;
+}
+.azu .far{
+    margin-right: 10px;
+}
+.azu input{
+    width: 100%;
+    background: transparent;
+    border: none;
+    outline: none; 
+    color: #ccc;
+}
+.azu button{
+    background: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+.social-icons .fa-brands{
+    border-radius: 50%;
+    line-height: 40px;
+    text-align: center;
+    margin-right: 15px;
+    cursor: pointer;
+}
+hr{
+    width: 90%;
+    border: 0;
+    border-bottom: 1px solid #ccc;
+    margin: 20px auto;
+    text-align: center;
+}
+.copyright{
+    text-align: center;
+}
+.underline{
+    width: 100%;
+    height: 5px;
+    background: #767676;
+    border-radius: 3px;
+    position: absolute;
+    top: 35px;
+    left: 0;
+    overflow: hidden;
+}
+.underline span{
+    width: 15px;
+    height: 100%;
+    background: #fff;
+    border-radius: 3px;
+    position: absolute;
+    top: 0;
+    left: 10px;
+    animation: infinite linear 2s moving;
+}
+@keyframes moving{
+     0%{
+        left: -20px;
+     }
+     100%{
+        left: 100%;
+     }
+}
+@media(max-width: 700px){
+    footer{
+        bottom: unset;
+    }
+    .col1{
+        flex-basis: 100%;
+       
+    }
+    .col1:nth-child(2), .col1:nth-child(3){
+        flex-basis: 100%;
+    }
+}
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+.footer-logo{
+    font-weight: 600;
+    color: orangered;
+    font-size: 25px;
+}
+.about{
+    text-align: center;
+    place-self: center;
+    margin: auto auto;
+    font-size: 50px;
+    font-weight: 600;
+    background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),url(/img/prod1.jpg);
+    background-position: center;
+    color: transparent;
+    -webkit-text-stroke: 1px #fff;
+    height: 50vh;
+    background-repeat: no-repeat;
+    padding-top: 120px;
+    background-size: cover;
+}
+.img{
+    height: 100%;
+    object-fit: cover;
+}
+.logos{
+    overflow: hidden;
+    padding: 20px 0;
+    background: #fff;
+    justify-content: space-around;
+    white-space: nowrap;
+    position: relative;
+    width: 80%;
+    float: right;
+}
+.logos::before,
+.logos::after{
+    position: absolute;
+    top: 0;
+    width: 250px;
+    height: 100%;
+    content: "";
+    z-index: 2;
+}
+.logos::before{
+    background: linear-gradient(to left,rgba(255, 255, 255, 0), #fff);
+    left: 0;
+}
+.logos::after{
+    background: linear-gradient(to right,rgba(255, 255, 255, 0), #fff);
+    right: 0;
+}
+.logos:hover .logos-slide{
+    animation-play-state: paused;
+}
+.logos-slide{
+    animation: slide 20s infinite linear;
+    display: inline-flex;
+    align-items: center;
+}
+.logos-slide img{
+    height: 50px;
+    margin: 0 40px;
+}
+.text{
+    display: flex;
+    align-items: center;
+}
+.p{
+    padding: 23px 100px;
+    text-transform: capitalize;
+    font-size: 20px;
+    text-align: center;
+    font-weight: 600;
+    font-family: sans-serif;
+    background: red;
+}
+@keyframes slide{
+    from{transform: translateX(0);}
+    to{transform: translateX(-100%);}
+}
+.vcv{
+    text-align: center;
+    font-weight: 600;
+    color: orangered;
+    margin: 60px auto;
+}
+.cvc{
+    text-align: center;
+    font-weight: 600;
+    color: orangered;
+}
+:root{
+    --total-brand: 14;
+    --logo-width: 12rem;
+    --total-logo-width: calc(var(--total-brand) * var(--logo-width) *2);
+    --animation-duration: calc(var(--total-brand) *1.5s) ;
+}
+section h1{
+    font-size: 1.5rem;
+    font-family: sans-serif;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+.slider{
+    width: 100vw;
+    height: 12rem;
+    background: #fff;
+    /* box-shadow: 0 .8rem 1.4rem -.2rem #0001; */
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+}
+.slider ul.brands{
+    list-style: none;
+    width: var(--total-logo-width);
+    display: flex;
+    animation: slideleft var(--animation-duration) linear infinite;
+   justify-content: space-between;
+}
+.slider:hover ul.brands{
+    animation-play-state: paused;
+}
+@keyframes slideleft{
+    100%{
+        transform: translateX(-50%);
+    }
+}
+ul.brands li.brand-logo{
+    width: var(--logo-width);
+    font-size: 2rem;
+    text-align: center;
+    margin-left: 3rem;
+}
+.slider::before,
+.slider::after{
+    position: absolute;
+    content: "";
+    height: 100%;
+    width: var(--logo-width);
+}
+.slider::before{
+    left: 0;
+    background: linear-gradient(to right, #fff 0%,#fff0 100%);
+}
+.slider::after{
+    right: 0;
+    background: linear-gradient(to left, #fff 0%,#fff0 100%);
+}
+.brand-logo img{
+    width: 80px;
+}
+.brand-logo{
+    display: flex;
+    align-items: center;
+}
+@media(max-width:500px){
+    .brand-logo{
+        display: block;
+        overflow: hidden;
+    }
+    @keyframes slideleft{
+        100%{
+            transform: translateY(-49.90%);
+        }
+    }
+    .slider ul.brands{
+        width: 100%;
+        list-style: none;
+        text-align: center;
+        align-items: center;
+        justify-self: center;
+        place-items: center;
+    /* width: var(--total-logo-width); */
+    display: block;
+    animation: slideleft 14s linear infinite;
+   justify-content: space-between;
+    }
+    .brand-logo img{
+        width: 100px;
+        margin: 10px;
+    }
+    .slider{
+        width: 100vw;
+        height: 20rem;
+        background: #fff;
+        /* padding-bottom: 40px;
+        margin-top: 30px; */
+        /* box-shadow: 0 .8rem 1.4rem -.2rem #0001; */
+        text-align: center;
+        justify-content: center;
+        place-items: center;
+        place-content: center;
+        display: block;
+        top: 10px;
+    }
+    .logos{
+        width: 100%;
+    }
+    section{
+        padding-bottom: 0px;
+    }
+    .slider::before{
+        left: 0;
+        background: linear-gradient(to top, #fff 0%,#fff0 100%);
+    }
+    .slider::after{
+        right: 0;
+        background: linear-gradient(to bottom, #fff 0%,#fff0 100%);
+    }
+}
+.fa-earth-africa{
+    color: blue;
+}
+.df{
+    text-align: center;
+}
